@@ -2,6 +2,8 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\Auth\LoginController;
+use App\Http\Controllers\DashboardController;
 
 /*
 |--------------------------------------------------------------------------
@@ -52,12 +54,7 @@ Route::get('/spmb', function() {
     return view('coming-soon', ['title' => 'SPMB']);
 })->name('spmb');
 
-// Login route
-Route::get('/login', function() {
-    return view('coming-soon', ['title' => 'Dashboard Login']);
-})->name('login');
-
-// Additional routes yang mungkin dibutuhkan berdasarkan data di HomeController
+// Additional public routes
 Route::get('/tentang', function () {
     return view('coming-soon', ['title' => 'Tentang Sekolah']);
 })->name('tentang');
@@ -77,3 +74,60 @@ Route::get('/ekstrakurikuler', function () {
 Route::get('/konsultasi', function () {
     return view('coming-soon', ['title' => 'Konsultasi']);
 })->name('konsultasi');
+
+/*
+|--------------------------------------------------------------------------
+| Authentication Routes
+|--------------------------------------------------------------------------
+*/
+
+// Guest routes (hanya bisa diakses jika belum login)
+Route::middleware('guest')->group(function () {
+    Route::get('/login', [LoginController::class, 'showLoginForm'])->name('login');
+    Route::post('/login', [LoginController::class, 'login']);
+});
+
+// Logout route (bisa diakses jika sudah login)
+Route::middleware('auth')->group(function () {
+    Route::post('/logout', [LoginController::class, 'logout'])->name('logout');
+});
+
+/*
+|--------------------------------------------------------------------------
+| Dashboard Routes (Protected)
+|--------------------------------------------------------------------------
+*/
+
+// Dashboard routes - hanya bisa diakses setelah login
+Route::middleware(['auth'])->prefix('dashboard')->name('dashboard.')->group(function () {
+    // Dashboard Home
+    Route::get('/', [DashboardController::class, 'index'])->name('index');
+    
+    // Alias untuk dashboard tanpa prefix (untuk backward compatibility)
+    Route::get('/home', [DashboardController::class, 'index'])->name('home');
+});
+
+// Alias route untuk dashboard (tanpa prefix)
+Route::middleware(['auth'])->group(function () {
+    Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
+});
+
+/*
+|--------------------------------------------------------------------------
+| Future CMS Routes (Coming Soon)
+|--------------------------------------------------------------------------
+| Routes ini akan diimplementasikan di tahap selanjutnya
+*/
+
+// Route::middleware(['auth'])->prefix('dashboard')->name('dashboard.')->group(function () {
+//     // Berita Management Routes
+//     Route::resource('berita', BeritaController::class);
+//     
+//     // Galeri Management Routes  
+//     Route::resource('galeri', GaleriController::class);
+//     
+//     // User Management Routes (hanya untuk Super Admin)
+//     Route::middleware(['role:super admin'])->group(function () {
+//         Route::resource('users', UserController::class);
+//     });
+// });
