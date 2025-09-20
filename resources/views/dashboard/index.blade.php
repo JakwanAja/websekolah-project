@@ -31,7 +31,7 @@
     <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
 </div>
 
-<!-- Stats Cards Row -->
+<!-- Stats Cards Row 
 <div class="row mb-4">
     <div class="col-xl-3 col-md-6 mb-4">
         <div class="stats-card">
@@ -72,7 +72,7 @@
             </div>
         </div>
     </div>
-</div>
+</div>-->
 
 <!-- Main Content Row -->
 <div class="row">

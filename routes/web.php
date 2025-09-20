@@ -103,8 +103,8 @@ Route::middleware(['auth'])->prefix('dashboard')->name('dashboard.')->group(func
     // Dashboard Home
     Route::get('/', [DashboardController::class, 'index'])->name('index');
     
-    // Alias untuk dashboard tanpa prefix (untuk backward compatibility)
-    Route::get('/home', [DashboardController::class, 'index'])->name('home');
+    // Content Management Routes
+    Route::resource('contents', App\Http\Controllers\Dashboard\ContentController::class);
 });
 
 // Alias route untuk dashboard (tanpa prefix)

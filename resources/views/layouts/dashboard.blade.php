@@ -273,18 +273,18 @@
                 </li>
                 
                 <li class="nav-item">
-                    <a class="nav-link" href="#" onclick="alert('Fitur akan segera hadir!')">
-                        <i class="fas fa-newspaper"></i>
-                        <span>Berita Management</span>
+                <a class="nav-link" href="{{ route('dashboard.contents.index') }}">
+                <i class="fas fa-newspaper"></i>
+                        <span>Content Management</span>
                     </a>
                 </li>
                 
-                <li class="nav-item">
+                <!--<li class="nav-item">
                     <a class="nav-link" href="#" onclick="alert('Fitur akan segera hadir!')">
                         <i class="fas fa-images"></i>
                         <span>Galeri Management</span>
                     </a>
-                </li>
+                </li>-->
                 
                 @role('super admin')
                 <li class="nav-item">

@@ -2,15 +2,255 @@
 
 @section('title', 'Beranda - SMA Negeri Unggulan')
 
+@push('styles')
+<style>
+/* Hero Carousel Styles */
+.hero-carousel {
+    height: 50vh;
+    min-height: 400px;
+    max-height: 500px;
+    overflow: hidden;
+    position: relative;
+}
+
+.hero-carousel .carousel-item {
+    height: 50vh;
+    min-height: 400px;
+    max-height: 500px;
+    background: linear-gradient(135deg, rgba(74, 144, 226, 0.8), rgba(80, 200, 120, 0.8));
+    position: relative;
+}
+
+.hero-carousel .carousel-item::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.4);
+    z-index: 1;
+}
+
+.hero-carousel .carousel-item img {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    z-index: 0;
+}
+
+.hero-content {
+    position: relative;
+    z-index: 2;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    color: white;
+    padding: 0 15px;
+}
+
+.hero-title {
+    font-size: 2.8rem;
+    font-weight: 700;
+    margin-bottom: 0.8rem;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+    animation: fadeInUp 1s ease-out;
+}
+
+.hero-subtitle {
+    font-size: 1.6rem;
+    font-weight: 600;
+    margin-bottom: 1rem;
+    text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.5);
+    animation: fadeInUp 1s ease-out 0.2s both;
+}
+
+.hero-description {
+    font-size: 1.1rem;
+    margin-bottom: 1.5rem;
+    max-width: 600px;
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
+    animation: fadeInUp 1s ease-out 0.4s both;
+}
+
+.hero-btn {
+    padding: 12px 30px;
+    font-size: 1.1rem;
+    font-weight: 600;
+    border: none;
+    border-radius: 50px;
+    background: linear-gradient(45deg, #ff6b6b, #4ecdc4);
+    color: white;
+    text-decoration: none;
+    display: inline-block;
+    transition: all 0.3s ease;
+    text-shadow: none;
+    animation: fadeInUp 1s ease-out 0.6s both;
+}
+
+.hero-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
+    color: white;
+}
+
+/* Carousel Controls */
+.hero-carousel .carousel-control-prev,
+.hero-carousel .carousel-control-next {
+    width: 5%;
+    opacity: 0.8;
+    transition: opacity 0.3s ease;
+}
+
+.hero-carousel .carousel-control-prev:hover,
+.hero-carousel .carousel-control-next:hover {
+    opacity: 1;
+}
+
+.hero-carousel .carousel-control-prev-icon,
+.hero-carousel .carousel-control-next-icon {
+    width: 2rem;
+    height: 2rem;
+}
+
+/* Carousel Indicators */
+.hero-carousel .carousel-indicators {
+    bottom: 30px;
+}
+
+.hero-carousel .carousel-indicators [data-bs-target] {
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    border: 2px solid white;
+    background-color: transparent;
+    opacity: 0.7;
+    transition: all 0.3s ease;
+}
+
+.hero-carousel .carousel-indicators .active {
+    opacity: 1;
+    background-color: white;
+    transform: scale(1.2);
+}
+
+/* Animations */
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .hero-carousel {
+        height: 45vh;
+        min-height: 350px;
+        max-height: 400px;
+    }
+    
+    .hero-carousel .carousel-item {
+        height: 45vh;
+        min-height: 350px;
+        max-height: 400px;
+    }
+    
+    .hero-title {
+        font-size: 2.2rem;
+    }
+    
+    .hero-subtitle {
+        font-size: 1.3rem;
+    }
+    
+    .hero-description {
+        font-size: 1rem;
+        margin-bottom: 1.2rem;
+    }
+}
+
+@media (max-width: 576px) {
+    .hero-carousel {
+        height: 40vh;
+        min-height: 300px;
+        max-height: 350px;
+    }
+    
+    .hero-carousel .carousel-item {
+        height: 40vh;
+        min-height: 300px;
+        max-height: 350px;
+    }
+    
+    .hero-title {
+        font-size: 1.8rem;
+    }
+    
+    .hero-subtitle {
+        font-size: 1.1rem;
+    }
+    
+    .hero-btn {
+        padding: 10px 25px;
+        font-size: 1rem;
+    }
+}
+</style>
+@endpush
+
 @section('content')
-<!-- Hero Section -->
-<section class="hero-section">
-    <div class="container">
-        <div class="hero-content text-center">
-            <h1 class="hero-title">Portal Berita & Informasi</h1>
-            <h2 class="hero-subtitle">SMA Negeri Unggulan</h2>
-            <p class="hero-description">Dapatkan informasi terkini seputar prestasi, kegiatan, dan perkembangan sekolah</p>
+<!-- Hero Carousel Section -->
+<section class="hero-carousel">
+    <div id="heroCarousel" class="carousel slide" data-bs-ride="carousel" data-bs-interval="5000">
+        <!-- Indicators -->
+        <div class="carousel-indicators">
+            @foreach($heroSlides as $index => $slide)
+            <button type="button" 
+                    data-bs-target="#heroCarousel" 
+                    data-bs-slide-to="{{ $index }}" 
+                    class="{{ $index === 0 ? 'active' : '' }}" 
+                    aria-current="{{ $index === 0 ? 'true' : 'false' }}" 
+                    aria-label="Slide {{ $index + 1 }}">
+            </button>
+            @endforeach
         </div>
+
+        <!-- Slides -->
+        <div class="carousel-inner">
+            @foreach($heroSlides as $index => $slide)
+            <div class="carousel-item {{ $index === 0 ? 'active' : '' }}">
+                <img src="{{ $slide['image'] }}" alt="{{ $slide['title'] }}">
+                <div class="hero-content">
+                    <div class="container">
+                        <h1 class="hero-title">{{ $slide['title'] }}</h1>
+                        <h2 class="hero-subtitle">{{ $slide['subtitle'] }}</h2>
+                        <p class="hero-description">{{ $slide['description'] }}</p>
+                        <a href="{{ $slide['button_link'] }}" class="hero-btn">{{ $slide['button_text'] }}</a>
+                    </div>
+                </div>
+            </div>
+            @endforeach
+        </div>
+
+        <!-- Controls -->
+        <button class="carousel-control-prev" type="button" data-bs-target="#heroCarousel" data-bs-slide="prev">
+            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+            <span class="visually-hidden">Previous</span>
+        </button>
+        <button class="carousel-control-next" type="button" data-bs-target="#heroCarousel" data-bs-slide="next">
+            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+            <span class="visually-hidden">Next</span>
+        </button>
     </div>
 </section>
 
@@ -308,5 +548,46 @@ document.querySelectorAll('[id^="videoModal"]').forEach(function(modal) {
         }
     });
 });
+
+// Smooth scroll for hero buttons
+document.addEventListener('DOMContentLoaded', function() {
+    const heroButtons = document.querySelectorAll('.hero-btn[href^="#"]');
+    
+    heroButtons.forEach(function(button) {
+        button.addEventListener('click', function(e) {
+            e.preventDefault();
+            const targetId = this.getAttribute('href');
+            const targetElement = document.querySelector(targetId);
+            
+            if (targetElement) {
+                targetElement.scrollIntoView({
+                    behavior: 'smooth',
+                    block: 'start'
+                });
+                
+                // If it's a tab, activate it
+                if (targetId.includes('tab')) {
+                    const tabButton = document.querySelector(`button[data-bs-target="${targetId}"]`);
+                    if (tabButton) {
+                        const tab = new bootstrap.Tab(tabButton);
+                        tab.show();
+                    }
+                }
+            }
+        });
+    });
+});
+
+// Pause carousel on hover
+const heroCarousel = document.querySelector('#heroCarousel');
+if (heroCarousel) {
+    heroCarousel.addEventListener('mouseenter', function() {
+        bootstrap.Carousel.getInstance(this).pause();
+    });
+    
+    heroCarousel.addEventListener('mouseleave', function() {
+        bootstrap.Carousel.getInstance(this).cycle();
+    });
+}
 </script>
 @endpush
