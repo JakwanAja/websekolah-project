@@ -5,9 +5,17 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Carbon\Carbon;
 use App\Models\Content;
+use App\Services\YouTubeService;
 
 class HomeController extends Controller
 {
+    protected $youtubeService;
+
+    public function __construct(YouTubeService $youtubeService)
+    {
+        $this->youtubeService = $youtubeService;
+    }
+
     public function index()
     {
         // Data untuk Hero Carousel (tetap static)
@@ -97,6 +105,18 @@ class HomeController extends Controller
                 })->toArray()
         ];
 
+        // Get YouTube data
+        $channelHandle = env('YOUTUBE_CHANNEL_HANDLE', '@pertajampolapikir');
+        $channelInfo = $this->youtubeService->getChannelInfo($channelHandle);
+        $latestVideos = $this->youtubeService->getChannelVideos($channelHandle, 6);
+
+        // Video categories for tabs (untuk implementasi future)
+        $videoCategories = [
+            'terbaru' => $latestVideos,
+            'ramadhan' => [],
+            'profil' => []
+        ];
+
         // Data untuk Posters (tetap static untuk sementara)
         $posters = [
             [
@@ -119,34 +139,6 @@ class HomeController extends Controller
                 'date' => '2025-10-05',
                 'priority' => 'medium',
                 'image' => 'https://images.unsplash.com/photo-1493225457124-a3eb161ffa5f?w=400&h=250&fit=crop'
-            ]
-        ];
-
-        // Data untuk Latest Videos (tetap static untuk sementara)
-        $latestVideos = [
-            [
-                'title' => 'Profil Sekolah 2025',
-                'thumbnail' => 'https://images.unsplash.com/photo-1503676260728-1c00da094a0b?w=480&h=360&fit=crop',
-                'video_url' => 'https://www.youtube.com/embed/dQw4w9WgXcQ',
-                'duration' => '05:30',
-                'views' => '1,234',
-                'upload_date' => '2025-09-15'
-            ],
-            [
-                'title' => 'Kegiatan Ekstrakurikuler',
-                'thumbnail' => 'https://images.unsplash.com/photo-1551731409-43eb3e517a1a?w=480&h=360&fit=crop',
-                'video_url' => 'https://www.youtube.com/embed/dQw4w9WgXcQ',
-                'duration' => '03:45',
-                'views' => '856',
-                'upload_date' => '2025-09-12'
-            ],
-            [
-                'title' => 'Program Pembelajaran Digital',
-                'thumbnail' => 'https://images.unsplash.com/photo-1485827404703-89b55fcc595e?w=480&h=360&fit=crop',
-                'video_url' => 'https://www.youtube.com/embed/dQw4w9WgXcQ',
-                'duration' => '04:15',
-                'views' => '698',
-                'upload_date' => '2025-09-10'
             ]
         ];
 
@@ -218,11 +210,40 @@ class HomeController extends Controller
         return view('home', compact(
             'heroSlides',
             'dynamicContent',
-            'posters',
+            'channelInfo',
             'latestVideos',
+            'videoCategories',
+            'posters',
             'editorPicks',
             'popularPosts',
             'popularCategories'
         ));
+    }
+
+    /**
+     * AJAX method to load videos by category
+     */
+    public function getVideosByCategory(Request $request)
+    {
+        $category = $request->input('category', 'terbaru');
+        $channelHandle = env('YOUTUBE_CHANNEL_HANDLE', '@pertajampolapikir');
+        
+        $videos = $this->youtubeService->getVideosByCategory($channelHandle, $category, 6);
+        
+        return response()->json([
+            'success' => true,
+            'videos' => $videos
+        ]);
+    }
+
+    /**
+     * Refresh YouTube cache
+     */
+    public function refreshYouTubeCache()
+    {
+        $channelHandle = env('YOUTUBE_CHANNEL_HANDLE', '@pertajampolapikir');
+        $this->youtubeService->clearCache($channelHandle);
+        
+        return redirect()->back()->with('success', 'Cache YouTube berhasil diperbarui!');
     }
 }

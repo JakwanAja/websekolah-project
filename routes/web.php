@@ -54,27 +54,9 @@ Route::get('/spmb', function() {
     return view('coming-soon', ['title' => 'SPMB']);
 })->name('spmb');
 
-// Additional public routes
-Route::get('/tentang', function () {
-    return view('coming-soon', ['title' => 'Tentang Sekolah']);
-})->name('tentang');
-
-Route::get('/pendaftaran', function () {
-    return view('coming-soon', ['title' => 'Pendaftaran']);
-})->name('pendaftaran');
-
-Route::get('/program', function () {
-    return view('coming-soon', ['title' => 'Program Unggulan']);
-})->name('program');
-
-Route::get('/ekstrakurikuler', function () {
-    return view('coming-soon', ['title' => 'Ekstrakurikuler']);
-})->name('ekstrakurikuler');
-
-Route::get('/konsultasi', function () {
-    return view('coming-soon', ['title' => 'Konsultasi']);
-})->name('konsultasi');
-
+// YouTube API routes
+Route::get('/videos/category/{category}', [HomeController::class, 'getVideosByCategory'])->name('videos.category');
+Route::post('/refresh-youtube-cache', [HomeController::class, 'refreshYouTubeCache'])->name('youtube.refresh');
 /*
 |--------------------------------------------------------------------------
 | Authentication Routes
@@ -111,23 +93,3 @@ Route::middleware(['auth'])->prefix('dashboard')->name('dashboard.')->group(func
 Route::middleware(['auth'])->group(function () {
     Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
 });
-
-/*
-|--------------------------------------------------------------------------
-| Future CMS Routes (Coming Soon)
-|--------------------------------------------------------------------------
-| Routes ini akan diimplementasikan di tahap selanjutnya
-*/
-
-// Route::middleware(['auth'])->prefix('dashboard')->name('dashboard.')->group(function () {
-//     // Berita Management Routes
-//     Route::resource('berita', BeritaController::class);
-//     
-//     // Galeri Management Routes  
-//     Route::resource('galeri', GaleriController::class);
-//     
-//     // User Management Routes (hanya untuk Super Admin)
-//     Route::middleware(['role:super admin'])->group(function () {
-//         Route::resource('users', UserController::class);
-//     });
-// });
