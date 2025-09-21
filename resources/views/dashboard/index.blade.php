@@ -31,49 +31,6 @@
     <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
 </div>
 
-<!-- Stats Cards Row 
-<div class="row mb-4">
-    <div class="col-xl-3 col-md-6 mb-4">
-        <div class="stats-card">
-            <div class="stats-number">150</div>
-            <div class="stats-label">Total Siswa</div>
-            <div class="stats-icon">
-                <i class="fas fa-users"></i>
-            </div>
-        </div>
-    </div>
-    
-    <div class="col-xl-3 col-md-6 mb-4">
-        <div class="stats-card" style="background: linear-gradient(135deg, #00d4aa, #00cae3);">
-            <div class="stats-number">25</div>
-            <div class="stats-label">Total Berita</div>
-            <div class="stats-icon">
-                <i class="fas fa-newspaper"></i>
-            </div>
-        </div>
-    </div>
-    
-    <div class="col-xl-3 col-md-6 mb-4">
-        <div class="stats-card" style="background: linear-gradient(135deg, #ffc107, #ff8c00);">
-            <div class="stats-number">89</div>
-            <div class="stats-label">Total Galeri</div>
-            <div class="stats-icon">
-                <i class="fas fa-images"></i>
-            </div>
-        </div>
-    </div>
-    
-    <div class="col-xl-3 col-md-6 mb-4">
-        <div class="stats-card" style="background: linear-gradient(135deg, #ff4c51, #e91e63);">
-            <div class="stats-number">{{ \App\Models\User::count() }}</div>
-            <div class="stats-label">Total Users</div>
-            <div class="stats-icon">
-                <i class="fas fa-user-shield"></i>
-            </div>
-        </div>
-    </div>
-</div>-->
-
 <!-- Main Content Row -->
 <div class="row">
     <!-- Recent Activities -->
@@ -91,29 +48,29 @@
                     <div class="timeline-item">
                         <div class="timeline-marker bg-primary"></div>
                         <div class="timeline-content">
-                            <h6 class="mb-1">Berita "Prestasi Siswa" dipublish</h6>
-                            <p class="text-muted mb-0">2 jam yang lalu</p>
+                            <h6 class="mb-1">--</h6>
+                            <p class="text-muted mb-0">--</p>
                         </div>
                     </div>
                     <div class="timeline-item">
                         <div class="timeline-marker bg-success"></div>
                         <div class="timeline-content">
-                            <h6 class="mb-1">10 foto baru ditambahkan ke galeri</h6>
-                            <p class="text-muted mb-0">4 jam yang lalu</p>
+                            <h6 class="mb-1">--</h6>
+                            <p class="text-muted mb-0">--</p>
                         </div>
                     </div>
                     <div class="timeline-item">
                         <div class="timeline-marker bg-warning"></div>
                         <div class="timeline-content">
-                            <h6 class="mb-1">User baru terdaftar: John Doe</h6>
-                            <p class="text-muted mb-0">6 jam yang lalu</p>
+                            <h6 class="mb-1">--</h6>
+                            <p class="text-muted mb-0">--</p>
                         </div>
                     </div>
                     <div class="timeline-item">
                         <div class="timeline-marker bg-info"></div>
                         <div class="timeline-content">
-                            <h6 class="mb-1">Backup database berhasil</h6>
-                            <p class="text-muted mb-0">1 hari yang lalu</p>
+                            <h6 class="mb-1">--</h6>
+                            <p class="text-muted mb-0">--</p>
                         </div>
                     </div>
                 </div>
@@ -198,7 +155,7 @@
 </div>
 
 <!-- Recent Users (Only for Super Admin) -->
-@role('super admin')
+@if(auth()->check() && auth()->user()->role === 'super admin')
 <div class="row mt-4">
     <div class="col-12">
         <div class="card">
@@ -207,9 +164,6 @@
                     <i class="fas fa-users text-primary me-2"></i>
                     Users Terdaftar
                 </h5>
-                <button class="btn btn-primary btn-sm" onclick="alert('Fitur akan segera hadir!')">
-                    <i class="fas fa-user-plus me-1"></i>Tambah User
-                </button>
             </div>
             <div class="card-body">
                 <div class="table-responsive">
@@ -220,7 +174,6 @@
                                 <th>Email</th>
                                 <th>Role</th>
                                 <th>Status</th>
-                                <th>Aksi</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -247,18 +200,6 @@
                                 </td>
                                 <td>
                                     <span class="badge bg-success">Active</span>
-                                </td>
-                                <td>
-                                    <div class="btn-group btn-group-sm">
-                                        <button class="btn btn-outline-primary btn-sm" onclick="alert('Fitur akan segera hadir!')" title="Edit">
-                                            <i class="fas fa-edit"></i>
-                                        </button>
-                                        @if($user->id !== Auth::id())
-                                        <button class="btn btn-outline-danger btn-sm" onclick="alert('Fitur akan segera hadir!')" title="Delete">
-                                            <i class="fas fa-trash"></i>
-                                        </button>
-                                        @endif
-                                    </div>
                                 </td>
                             </tr>
                             @endforeach

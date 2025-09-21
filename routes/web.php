@@ -87,6 +87,10 @@ Route::middleware(['auth'])->prefix('dashboard')->name('dashboard.')->group(func
     
     // Content Management Routes
     Route::resource('contents', App\Http\Controllers\Dashboard\ContentController::class);
+    
+    // User Management Routes (Basic Auth Only)
+    Route::resource('users', App\Http\Controllers\Dashboard\UserController::class);
+    Route::patch('users/{user}/toggle-status', [App\Http\Controllers\Dashboard\UserController::class, 'toggleStatus'])->name('users.toggle-status');
 });
 
 // Alias route untuk dashboard (tanpa prefix)

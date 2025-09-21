@@ -279,21 +279,21 @@
                     </a>
                 </li>
                 
-                <!--<li class="nav-item">
-                    <a class="nav-link" href="#" onclick="alert('Fitur akan segera hadir!')">
-                        <i class="fas fa-images"></i>
-                        <span>Galeri Management</span>
-                    </a>
-                </li>-->
-                
-                @role('super admin')
                 <li class="nav-item">
                     <a class="nav-link" href="#" onclick="alert('Fitur akan segera hadir!')">
+                        <i class="fas fa-images"></i>
+                        <span>Fasilitas & Ekstrakulikuler</span>
+                    </a>
+                </li>
+                
+                @if(auth()->check() && auth()->user()->role === 'super admin')
+                <li class="nav-item">
+                    <a class="nav-link" href="{{ route('dashboard.users.index') }}">
                         <i class="fas fa-users"></i>
                         <span>User Management</span>
                     </a>
                 </li>
-                @endrole
+                @endif
             </ul>
         </nav>
     </div>
