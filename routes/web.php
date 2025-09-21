@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\ProfilController;
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\DashboardController;
 
@@ -19,18 +20,16 @@ use App\Http\Controllers\DashboardController;
 // Home route
 Route::get('/', [HomeController::class, 'index'])->name('home');
 
-// Profil routes
-Route::get('/profil/visi-misi', function() {
-    return view('coming-soon', ['title' => 'Visi Misi']);
-})->name('profil.visi-misi');
-
-Route::get('/profil/prestasi', function() {
-    return view('coming-soon', ['title' => 'Prestasi']);
-})->name('profil.prestasi');
-
-Route::get('/profil/fasilitas', function() {
-    return view('coming-soon', ['title' => 'Fasilitas']);
-})->name('profil.fasilitas');
+/*
+|--------------------------------------------------------------------------
+| Profil Routes
+|--------------------------------------------------------------------------
+*/
+Route::prefix('profil')->group(function () {
+    Route::get('/visi-misi', [ProfilController::class, 'visiMisi'])->name('profil.visi-misi');
+    Route::get('/prestasi', [ProfilController::class, 'prestasi'])->name('profil.prestasi');
+    Route::get('/fasilitas', [ProfilController::class, 'fasilitas'])->name('profil.fasilitas');
+});
 
 // Berita routes
 Route::get('/berita', function() {
@@ -57,6 +56,7 @@ Route::get('/spmb', function() {
 // YouTube API routes
 Route::get('/videos/category/{category}', [HomeController::class, 'getVideosByCategory'])->name('videos.category');
 Route::post('/refresh-youtube-cache', [HomeController::class, 'refreshYouTubeCache'])->name('youtube.refresh');
+
 /*
 |--------------------------------------------------------------------------
 | Authentication Routes

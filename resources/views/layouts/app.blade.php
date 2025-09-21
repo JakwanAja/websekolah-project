@@ -17,6 +17,8 @@
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     
     <!-- Custom CSS -->
+    <link href="{{ asset('css/custom.css') }}" rel="stylesheet">
+
     <style>
         :root {
             --primary-color: #1e40af;
@@ -719,7 +721,7 @@
                             Berita
                         </a>
                         <ul class="dropdown-menu" aria-labelledby="beritaDropdown">
-                            <li><a class="dropdown-item" href="{{ route('berita.today') }}"><i class="fas fa-newspaper me-2"></i>Berita Today</a></li>
+                            <li><a class="dropdown-item" href="{{ route('berita.today') }}"><i class="fas fa-newspaper me-2"></i>Smanung Today</a></li>
                             <li><a class="dropdown-item" href="{{ route('berita.siswa-prestasi') }}"><i class="fas fa-star me-2"></i>Siswa Prestasi</a></li>
                             <li><a class="dropdown-item" href="{{ route('berita.agenda') }}"><i class="fas fa-calendar-alt me-2"></i>Agenda Sekolah</a></li>
                         </ul>
@@ -734,9 +736,9 @@
                             Sosmed
                         </a>
                         <ul class="dropdown-menu" aria-labelledby="sosmedDropdown">
-                            <li><a class="dropdown-item" href="https://instagram.com" target="_blank"><i class="fab fa-instagram me-2"></i>Instagram Sekolah</a></li>
-                            <li><a class="dropdown-item" href="https://youtube.com" target="_blank"><i class="fab fa-youtube me-2"></i>YouTube Sekolah</a></li>
-                            <li><a class="dropdown-item" href="https://tiktok.com" target="_blank"><i class="fab fa-tiktok me-2"></i>TikTok Sekolah</a></li>
+                            <li><a class="dropdown-item" href="https://instagram.com" target="_blank"><i class="fab fa-instagram me-2"></i>Instagram Smanung</a></li>
+                            <li><a class="dropdown-item" href="https://youtube.com" target="_blank"><i class="fab fa-youtube me-2"></i>YouTube Smanung</a></li>
+                            <li><a class="dropdown-item" href="https://tiktok.com" target="_blank"><i class="fab fa-tiktok me-2"></i>TikTok Smanung</a></li>
                         </ul>
                     </li>
                 </ul>
