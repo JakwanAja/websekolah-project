@@ -21,22 +21,12 @@ use App\Http\Controllers\DashboardController;
 // Home route
 Route::get('/', [HomeController::class, 'index'])->name('home');
 
-/*
-|--------------------------------------------------------------------------
-| Profil Routes
-|--------------------------------------------------------------------------
-*/
 Route::prefix('profil')->group(function () {
     Route::get('/visi-misi', [ProfilController::class, 'visiMisi'])->name('profil.visi-misi');
     Route::get('/prestasi', [ProfilController::class, 'prestasi'])->name('profil.prestasi');
     Route::get('/fasilitas', [ProfilController::class, 'fasilitas'])->name('profil.fasilitas');
 });
 
-/*
-|--------------------------------------------------------------------------
-| Berita Routes
-|--------------------------------------------------------------------------
-*/
 Route::prefix('berita')->name('berita.')->group(function () {
     Route::get('/today', [BeritaController::class, 'today'])->name('today');
     Route::get('/siswa-prestasi', [BeritaController::class, 'siswaPrestasi'])->name('siswa-prestasi');
@@ -88,6 +78,9 @@ Route::middleware(['auth'])->prefix('dashboard')->name('dashboard.')->group(func
     
     // Content Management Routes
     Route::resource('contents', App\Http\Controllers\Dashboard\ContentController::class);
+    
+    // Facilities Management Routes
+    Route::resource('facilities', App\Http\Controllers\Dashboard\FacilityController::class);
     
     // User Management Routes (Basic Auth Only)
     Route::resource('users', App\Http\Controllers\Dashboard\UserController::class);

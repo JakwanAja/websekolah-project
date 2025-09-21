@@ -230,30 +230,6 @@
                             </div>
                         </div>
 
-                        <!-- SEO Section -->
-                        <div class="card mt-3">
-                            <div class="card-header">
-                                <h6 class="mb-0 text-primary">
-                                    <i class="fas fa-search me-2"></i>SEO Settings (Opsional)
-                                </h6>
-                            </div>
-                            <div class="card-body">
-                                <div class="form-group">
-                                    <label for="meta_title">Meta Title</label>
-                                    <input type="text" class="form-control" id="meta_title" name="meta_title" 
-                                           value="{{ old('meta_title', $content->meta_title ?? '') }}" maxlength="60" placeholder="Judul untuk SEO">
-                                    <small class="form-text text-muted">Kosongkan untuk menggunakan judul utama</small>
-                                </div>
-                                
-                                <div class="form-group">
-                                    <label for="meta_description">Meta Description</label>
-                                    <textarea class="form-control" id="meta_description" name="meta_description" 
-                                              rows="2" maxlength="160" placeholder="Deskripsi untuk mesin pencari">{{ old('meta_description', $content->meta_description ?? '') }}</textarea>
-                                    <small class="form-text text-muted">Kosongkan untuk menggunakan excerpt</small>
-                                </div>
-                            </div>
-                        </div>
-
                         <!-- Content Stats -->
                         <div class="card mt-3">
                             <div class="card-header">

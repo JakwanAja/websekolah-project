@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Models\Facility;
 
 class ProfilController extends Controller
 {
@@ -53,20 +54,44 @@ class ProfilController extends Controller
     }
 
     /**
-     * Menampilkan halaman Prestasi
-     */
-    public function prestasi()
-    {
-        // Untuk sementara menggunakan coming-soon page
-        return view('coming-soon', ['title' => 'Prestasi']);
-    }
-
-    /**
      * Menampilkan halaman Fasilitas & Ekstrakurikuler
      */
-    public function fasilitas()
+    public function fasilitas(Request $request)
     {
-        // Untuk sementara menggunakan coming-soon page
-        return view('coming-soon', ['title' => 'Fasilitas']);
+        $query = Facility::query();
+
+        // Filter berdasarkan type jika ada
+        if ($request->filled('type')) {
+            $query->where('type', $request->type);
+        }
+
+        // Search functionality
+        if ($request->filled('search')) {
+            $query->where(function ($q) use ($request) {
+                $q->where('title', 'like', '%' . $request->search . '%')
+                  ->orWhere('description', 'like', '%' . $request->search . '%');
+            });
+        }
+
+        $facilities = $query->latest()->paginate(12);
+        
+        // Append query parameters untuk pagination
+        $facilities->appends($request->query());
+
+        // Get counts for each type
+        $fasilitasCount = Facility::where('type', 'fasilitas')->count();
+        $ekstrakulikulerCount = Facility::where('type', 'ekstrakurikuler')->count();
+        $totalFacilities = $facilities->total();
+
+        // Recent facilities for sidebar
+        $recentFacilities = Facility::latest()->take(5)->get();
+
+        return view('profil.fasilitas', compact(
+            'facilities',
+            'fasilitasCount',
+            'ekstrakulikulerCount',
+            'totalFacilities',
+            'recentFacilities'
+        ));
     }
 }

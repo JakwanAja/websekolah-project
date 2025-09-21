@@ -280,8 +280,8 @@
                 </li>
                 
                 <li class="nav-item">
-                    <a class="nav-link" href="#" onclick="alert('Fitur akan segera hadir!')">
-                        <i class="fas fa-images"></i>
+                    <a class="nav-link" href="{{ route('dashboard.facilities.index') }}">
+                        <i class="fas fa-building"></i>
                         <span>Fasilitas & Ekstrakulikuler</span>
                     </a>
                 </li>

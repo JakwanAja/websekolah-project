@@ -711,7 +711,6 @@
                         </a>
                         <ul class="dropdown-menu" aria-labelledby="profilDropdown">
                             <li><a class="dropdown-item" href="{{ route('profil.visi-misi') }}"><i class="fas fa-bullseye me-2"></i>Visi Misi & Motto</a></li>
-                            <li><a class="dropdown-item" href="{{ route('profil.prestasi') }}"><i class="fas fa-trophy me-2"></i>Prestasi</a></li>
                             <li><a class="dropdown-item" href="{{ route('profil.fasilitas') }}"><i class="fas fa-building me-2"></i>Fasilitas & Ekstrakurikuler</a></li>
                         </ul>
                     </li>
