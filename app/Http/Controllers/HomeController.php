@@ -68,7 +68,8 @@ class HomeController extends Controller
                         'category' => $content->category_display_name,
                         'author' => $content->author,
                         'date' => $content->published_date->format('Y-m-d'),
-                        'image' => $content->image_url
+                        'image' => $content->image_url,
+                        'slug' => $content->slug // Tambahkan slug
                     ];
                 })->toArray(),
             
@@ -84,7 +85,8 @@ class HomeController extends Controller
                         'category' => $content->category_display_name,
                         'author' => $content->author,
                         'date' => $content->published_date->format('Y-m-d'),
-                        'image' => $content->image_url
+                        'image' => $content->image_url,
+                        'slug' => $content->slug // Tambahkan slug
                     ];
                 })->toArray(),
             
@@ -100,7 +102,8 @@ class HomeController extends Controller
                         'category' => $content->category_display_name,
                         'author' => $content->author,
                         'date' => $content->published_date->format('Y-m-d'),
-                        'image' => $content->image_url
+                        'image' => $content->image_url,
+                        'slug' => $content->slug // Tambahkan slug
                     ];
                 })->toArray()
         ];
@@ -117,30 +120,41 @@ class HomeController extends Controller
             'profil' => []
         ];
 
-        // Data untuk Posters (tetap static untuk sementara)
-        $posters = [
-            [
-                'title' => 'Pendaftaran Siswa Baru 2025/2026',
-                'type' => 'pendaftaran',
-                'date' => '2025-01-15',
-                'priority' => 'high',
-                'image' => 'https://i.pinimg.com/736x/f8/1e/5d/f81e5ddc58f6a98b1237eed47af355fc.jpg'
-            ],
-            [
-                'title' => 'Kompetisi Sains Nasional',
-                'type' => 'kompetisi',
-                'date' => '2025-03-20',
-                'priority' => 'medium',
-                'image' => 'https://images.unsplash.com/photo-1532094349884-543bc11b234d?w=600&h=800&fit=crop'
-            ],
-            [
-                'title' => 'Festival Seni dan Budaya',
-                'type' => 'event',
-                'date' => '2025-10-05',
-                'priority' => 'medium',
-                'image' => 'https://images.unsplash.com/photo-1493225457124-a3eb161ffa5f?w=400&h=250&fit=crop'
-            ]
-        ];
+        // Data untuk Posters 
+        $posters = Content::published()
+            ->whereIn('category', ['smanung_today', 'siswa_prestasi', 'agenda_sekolah'])
+            ->inRandomOrder()
+            ->limit(3) // Ambil 3 artikel random
+            ->get()
+            ->map(function($content) {
+                $daysDiff = now()->diffInDays($content->published_date);
+                $priority = $daysDiff <= 7 ? 'high' : 'medium'; 
+                
+                return [
+                    'title' => $content->title,
+                    'type' => str_replace('_', ' ', $content->category), // Format type
+                    'date' => $content->published_date->format('Y-m-d'),
+                    'priority' => $priority,
+                    'image' => $content->image_url,
+                    'slug' => $content->slug 
+                ];
+            })
+            ->toArray();
+        // Jika poster kosong atau kurang dari 3, tambahkan data fallback
+        if (count($posters) < 3) {
+            $fallbackPosters = [
+                [
+                    'title' => 'Pendaftaran Siswa Baru 2025/2026',
+                    'type' => 'pendaftaran',
+                    'date' => '2025-01-15',
+                    'priority' => 'high',
+                    'image' => 'https://i.pinimg.com/736x/f8/1e/5d/f81e5ddc58f6a98b1237eed47af355fc.jpg',
+                    'slug' => null // Tidak ada link untuk fallback
+                ]
+            ];
+            
+            $posters = array_merge($posters, array_slice($fallbackPosters, 0, 3 - count($posters)));
+        }
 
         // Data untuk Editor Picks (dari database)
         $editorPicks = Content::published()

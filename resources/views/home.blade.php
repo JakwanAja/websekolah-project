@@ -82,27 +82,35 @@
                                 @foreach($dynamicContent['berita_today'] as $index => $news)
                                 <div class="col-lg-6 col-md-12">
                                     <article class="content-card">
-                                        <div class="content-image">
-                                            <img src="{{ $news['image'] }}" alt="{{ $news['title'] }}">
-                                            <div class="content-overlay">
-                                                <span class="content-category bg-primary">{{ $news['category'] }}</span>
+                                        <a href="{{ route('berita.show', $news['slug']) }}" class="text-decoration-none">
+                                            <div class="content-image">
+                                                <img src="{{ $news['image'] }}" alt="{{ $news['title'] }}">
+                                                <div class="content-overlay">
+                                                    <span class="content-category bg-primary">{{ $news['category'] }}</span>
+                                                </div>
                                             </div>
-                                        </div>
-                                        <div class="content-body">
-                                            <h5 class="content-title">{{ $news['title'] }}</h5>
-                                            <p class="content-excerpt">{{ $news['excerpt'] }}</p>
-                                            <div class="content-meta">
-                                                <span class="meta-author">
-                                                    <i class="fas fa-user me-1"></i>{{ $news['author'] }}
-                                                </span>
-                                                <span class="meta-date">
-                                                    <i class="fas fa-calendar me-1"></i>{{ \Carbon\Carbon::parse($news['date'])->format('d/m/Y') }}
-                                                </span>
+                                            <div class="content-body">
+                                                <h5 class="content-title text-dark">{{ $news['title'] }}</h5>
+                                                <p class="content-excerpt text-muted">{{ $news['excerpt'] }}</p>
+                                                <div class="content-meta">
+                                                    <span class="meta-author">
+                                                        <i class="fas fa-user me-1"></i>{{ $news['author'] }}
+                                                    </span>
+                                                    <span class="meta-date">
+                                                        <i class="fas fa-calendar me-1"></i>{{ \Carbon\Carbon::parse($news['date'])->format('d/m/Y') }}
+                                                    </span>
+                                                </div>
                                             </div>
-                                        </div>
+                                        </a>
                                     </article>
                                 </div>
                                 @endforeach
+                            </div>
+                            <!-- View More Button -->
+                            <div class="text-center mt-4">
+                                <a href="{{ route('berita.today') }}" class="btn btn-primary btn-sm">
+                                    <i class="fas fa-plus me-2"></i>Lihat Semua Smanung Today
+                                </a>
                             </div>
                         </div>
 
@@ -112,27 +120,35 @@
                                 @foreach($dynamicContent['siswa_prestasi'] as $news)
                                 <div class="col-lg-6 col-md-12">
                                     <article class="content-card">
-                                        <div class="content-image">
-                                            <img src="{{ $news['image'] }}" alt="{{ $news['title'] }}">
-                                            <div class="content-overlay">
-                                                <span class="content-category bg-success">{{ $news['category'] }}</span>
+                                        <a href="{{ route('berita.show', $news['slug']) }}" class="text-decoration-none">
+                                            <div class="content-image">
+                                                <img src="{{ $news['image'] }}" alt="{{ $news['title'] }}">
+                                                <div class="content-overlay">
+                                                    <span class="content-category bg-success">{{ $news['category'] }}</span>
+                                                </div>
                                             </div>
-                                        </div>
-                                        <div class="content-body">
-                                            <h5 class="content-title">{{ $news['title'] }}</h5>
-                                            <p class="content-excerpt">{{ $news['excerpt'] }}</p>
-                                            <div class="content-meta">
-                                                <span class="meta-author">
-                                                    <i class="fas fa-user me-1"></i>{{ $news['author'] }}
-                                                </span>
-                                                <span class="meta-date">
-                                                    <i class="fas fa-calendar me-1"></i>{{ \Carbon\Carbon::parse($news['date'])->format('d/m/Y') }}
-                                                </span>
+                                            <div class="content-body">
+                                                <h5 class="content-title text-dark">{{ $news['title'] }}</h5>
+                                                <p class="content-excerpt text-muted">{{ $news['excerpt'] }}</p>
+                                                <div class="content-meta">
+                                                    <span class="meta-author">
+                                                        <i class="fas fa-user me-1"></i>{{ $news['author'] }}
+                                                    </span>
+                                                    <span class="meta-date">
+                                                        <i class="fas fa-calendar me-1"></i>{{ \Carbon\Carbon::parse($news['date'])->format('d/m/Y') }}
+                                                    </span>
+                                                </div>
                                             </div>
-                                        </div>
+                                        </a>
                                     </article>
                                 </div>
                                 @endforeach
+                            </div>
+                            <!-- View More Button -->
+                            <div class="text-center mt-4">
+                                <a href="{{ route('berita.siswa-prestasi') }}" class="btn btn-success btn-sm">
+                                    <i class="fas fa-trophy me-2"></i>Lihat Semua Prestasi Siswa
+                                </a>
                             </div>
                         </div>
 
@@ -142,27 +158,35 @@
                                 @foreach($dynamicContent['agenda_sekolah'] as $news)
                                 <div class="col-lg-6 col-md-12">
                                     <article class="content-card">
-                                        <div class="content-image">
-                                            <img src="{{ $news['image'] }}" alt="{{ $news['title'] }}">
-                                            <div class="content-overlay">
-                                                <span class="content-category bg-warning">{{ $news['category'] }}</span>
+                                        <a href="{{ route('berita.show', $news['slug']) }}" class="text-decoration-none">
+                                            <div class="content-image">
+                                                <img src="{{ $news['image'] }}" alt="{{ $news['title'] }}">
+                                                <div class="content-overlay">
+                                                    <span class="content-category bg-warning">{{ $news['category'] }}</span>
+                                                </div>
                                             </div>
-                                        </div>
-                                        <div class="content-body">
-                                            <h5 class="content-title">{{ $news['title'] }}</h5>
-                                            <p class="content-excerpt">{{ $news['excerpt'] }}</p>
-                                            <div class="content-meta">
-                                                <span class="meta-author">
-                                                    <i class="fas fa-user me-1"></i>{{ $news['author'] }}
-                                                </span>
-                                                <span class="meta-date">
-                                                    <i class="fas fa-calendar me-1"></i>{{ \Carbon\Carbon::parse($news['date'])->format('d/m/Y') }}
-                                                </span>
+                                            <div class="content-body">
+                                                <h5 class="content-title text-dark">{{ $news['title'] }}</h5>
+                                                <p class="content-excerpt text-muted">{{ $news['excerpt'] }}</p>
+                                                <div class="content-meta">
+                                                    <span class="meta-author">
+                                                        <i class="fas fa-user me-1"></i>{{ $news['author'] }}
+                                                    </span>
+                                                    <span class="meta-date">
+                                                        <i class="fas fa-calendar me-1"></i>{{ \Carbon\Carbon::parse($news['date'])->format('d/m/Y') }}
+                                                    </span>
+                                                </div>
                                             </div>
-                                        </div>
+                                        </a>
                                     </article>
                                 </div>
                                 @endforeach
+                            </div>
+                            <!-- View More Button -->
+                            <div class="text-center mt-4">
+                                <a href="{{ route('berita.agenda') }}" class="btn btn-warning btn-sm">
+                                    <i class="fas fa-calendar-alt me-2"></i>Lihat Semua Agenda Sekolah
+                                </a>
                             </div>
                         </div>
                     </div>
@@ -201,23 +225,54 @@
             @foreach($posters as $poster)
             <div class="col-lg-4 col-md-6">
                 <div class="poster-card">
-                    <div class="poster-image">
-                        <img src="{{ $poster['image'] }}" alt="{{ $poster['title'] }}">
-                        <div class="poster-badge {{ $poster['priority'] === 'high' ? 'badge-high' : 'badge-medium' }}">
-                            {{ strtoupper($poster['type']) }}
+                    @if($poster['slug'])
+                        <a href="{{ route('berita.show', $poster['slug']) }}" class="text-decoration-none">
+                    @endif
+                        <div class="poster-image">
+                            <img src="{{ $poster['image'] }}" alt="{{ $poster['title'] }}">
+                            <div class="poster-badge {{ $poster['priority'] === 'high' ? 'badge-high' : 'badge-medium' }}">
+                                {{ strtoupper($poster['type']) }}
+                            </div>
                         </div>
-                    </div>
-                    <div class="poster-content">
-                        <h5 class="poster-title">{{ $poster['title'] }}</h5>
-                        <p class="poster-date">
-                            <i class="fas fa-calendar-alt me-2"></i>
-                            {{ \Carbon\Carbon::parse($poster['date'])->format('d F Y') }}
-                        </p>
-                        <a href="#" class="btn btn-outline-primary btn-sm">Lihat Detail</a>
-                    </div>
+                        <div class="poster-content">
+                            <h5 class="poster-title {{ $poster['slug'] ? 'text-dark' : '' }}">{{ $poster['title'] }}</h5>
+                            <p class="poster-date">
+                                <i class="fas fa-calendar-alt me-2"></i>
+                                {{ \Carbon\Carbon::parse($poster['date'])->format('d F Y') }}
+                            </p>
+                            @if($poster['slug'])
+                                <div class="btn btn-outline-primary btn-sm">Lihat Detail</div>
+                            @else
+                                <div class="btn btn-outline-secondary btn-sm disabled">Info Lebih Lanjut</div>
+                            @endif
+                        </div>
+                    @if($poster['slug'])
+                        </a>
+                    @endif
                 </div>
             </div>
             @endforeach
+        </div>
+        
+        <!-- View All Button -->
+        <div class="text-center mt-4">
+            <div class="row">
+                <div class="col-md-4 mb-2">
+                    <a href="{{ route('berita.today') }}" class="btn btn-primary w-100">
+                        <i class="fas fa-newspaper me-2"></i>Smanung Today
+                    </a>
+                </div>
+                <div class="col-md-4 mb-2">
+                    <a href="{{ route('berita.siswa-prestasi') }}" class="btn btn-success w-100">
+                        <i class="fas fa-trophy me-2"></i>Prestasi Siswa
+                    </a>
+                </div>
+                <div class="col-md-4 mb-2">
+                    <a href="{{ route('berita.agenda') }}" class="btn btn-warning w-100">
+                        <i class="fas fa-calendar-alt me-2"></i>Agenda Sekolah
+                    </a>
+                </div>
+            </div>
         </div>
     </div>
 </section>

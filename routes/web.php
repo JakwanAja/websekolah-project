@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\ProfilController;
+use App\Http\Controllers\BeritaController;
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\DashboardController;
 
@@ -31,22 +32,22 @@ Route::prefix('profil')->group(function () {
     Route::get('/fasilitas', [ProfilController::class, 'fasilitas'])->name('profil.fasilitas');
 });
 
-// Berita routes
+/*
+|--------------------------------------------------------------------------
+| Berita Routes
+|--------------------------------------------------------------------------
+*/
+Route::prefix('berita')->name('berita.')->group(function () {
+    Route::get('/today', [BeritaController::class, 'today'])->name('today');
+    Route::get('/siswa-prestasi', [BeritaController::class, 'siswaPrestasi'])->name('siswa-prestasi');
+    Route::get('/agenda', [BeritaController::class, 'agenda'])->name('agenda');
+    Route::get('/{slug}', [BeritaController::class, 'show'])->name('show');
+});
+
+// General Berita route (you can customize this to show all categories or redirect)
 Route::get('/berita', function() {
-    return view('coming-soon', ['title' => 'Berita']);
+    return redirect()->route('berita.today');
 })->name('berita');
-
-Route::get('/berita/today', function() {
-    return view('coming-soon', ['title' => 'Berita Today']);
-})->name('berita.today');
-
-Route::get('/berita/siswa-prestasi', function() {
-    return view('coming-soon', ['title' => 'Siswa Prestasi']);
-})->name('berita.siswa-prestasi');
-
-Route::get('/berita/agenda', function() {
-    return view('coming-soon', ['title' => 'Agenda Sekolah']);
-})->name('berita.agenda');
 
 // SPMB route
 Route::get('/spmb', function() {
